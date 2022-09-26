@@ -245,23 +245,25 @@ func GetAccount(connection *sdk.Connection, key string) (account *amv1.Account, 
 	return
 }
 
-func ConfirmSend() error {
+func ConfirmSend() bool {
 
 	fmt.Print("Continue? (y/N): ")
-	reader := bufio.NewReader(os.Stdin)
-	responseBytes, _, err := reader.ReadLine()
-	if err != nil {
-		return err
-	}
-	response := strings.ToUpper(string(responseBytes))
 
-	if response != "Y" && response != "YES" {
-		if response != "N" && response != "NO" && response != "" {
-			log.Fatal("Invalid response, expected 'YES' or 'Y' (case-insensitive). ")
-		}
-		log.Fatalf("Exiting...")
+	var response string
+	_, err := fmt.Scanln(&response)
+	if err != nil {
+		log.Fatal(err)
 	}
-	return nil
+
+	switch strings.ToLower(response) {
+	case "y", "yes":
+		return true
+	case "n", "no":
+		return false
+	default:
+		fmt.Println("Invalid input. Expectin (y)es or (N)o")
+		return ConfirmSend()
+	}
 }
 
 // streamPrintln appends a newline then prints the given msg using the provided IOStreams

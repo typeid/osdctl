@@ -119,10 +119,10 @@ func (o *postOptions) run() error {
 	}
 
 	// confirmSend prompt to confirm
-	err = confirmSend()
-	if err != nil {
-		fmt.Println("failed to confirmSend(): ", err.Error())
-		return err
+	confirmed := ctlutil.ConfirmSend()
+	if !confirmed {
+		fmt.Println("Exiting...")
+		return nil
 	}
 
 	//getting the cluster

@@ -12,6 +12,7 @@ import (
 	v1 "github.com/openshift-online/ocm-sdk-go/clustersmgmt/v1"
 	"github.com/openshift/osdctl/internal/support"
 	"github.com/openshift/osdctl/internal/utils/globalflags"
+	"github.com/openshift/osdctl/pkg/utils"
 	ctlutil "github.com/openshift/osdctl/pkg/utils"
 	"github.com/spf13/cobra"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
@@ -99,10 +100,10 @@ func (o *deleteOptions) run() error {
 	}
 
 	// confirmSend prompt to confirm
-	err = confirmSend()
-	if err != nil {
-		fmt.Println("failed to confirmSend(): ", err.Error())
-		return err
+	confirmed := utils.ConfirmSend()
+	if !confirmed {
+		fmt.Println("Exiting...")
+		return nil
 	}
 
 	//getting the cluster
