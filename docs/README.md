@@ -92,6 +92,7 @@
 - `hcp` - 
   - `force-upgrade` - Schedule forced control plane upgrade for HCP clusters (Requires ForceUpgrader permissions)
   - `must-gather --cluster-id <cluster-identifier>` - Create a must-gather for HCP cluster
+  - `status` - Show HCP cluster health status from OCM live resources
 - `hive` - hive related utilities
   - `clusterdeployment` - cluster deployment related utilities
     - `list` - List cluster deployment crs
@@ -2805,6 +2806,33 @@ osdctl hcp must-gather --cluster-id <cluster-identifier> [flags]
       --kubeconfig string                Path to the kubeconfig file to use for CLI requests.
   -o, --output string                    Valid formats are ['', 'json', 'yaml', 'env']
       --reason string                    The reason for this command, which requires elevation (e.g., OHSS ticket or PD incident).
+      --request-timeout string           The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests. (default "0")
+  -s, --server string                    The address and port of the Kubernetes API server
+      --skip-aws-proxy-check aws_proxy   Don't use the configured aws_proxy value
+  -S, --skip-version-check               skip checking to see if this is the most recent release
+```
+
+### osdctl hcp status
+
+Display a comprehensive health overview of a ROSA HCP cluster using
+data from the OCM live resources endpoint. Shows ManifestWork sync status,
+HostedCluster conditions, certificate status, and NodePool health.
+
+```
+osdctl hcp status [flags]
+```
+
+#### Flags
+
+```
+      --as string                        Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
+      --cluster string                   The name of the kubeconfig cluster to use
+  -C, --cluster-id string                Cluster name, ID, or external ID
+      --context string                   The name of the kubeconfig context to use
+  -h, --help                             help for status
+      --insecure-skip-tls-verify         If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string                Path to the kubeconfig file to use for CLI requests.
+  -o, --output string                    Valid formats are ['', 'json', 'yaml', 'env']
       --request-timeout string           The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests. (default "0")
   -s, --server string                    The address and port of the Kubernetes API server
       --skip-aws-proxy-check aws_proxy   Don't use the configured aws_proxy value

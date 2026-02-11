@@ -1,11 +1,32 @@
-## osdctl hcp
+## osdctl hcp status
 
+Show HCP cluster health status from OCM live resources
 
+### Synopsis
+
+Display a comprehensive health overview of a ROSA HCP cluster using
+data from the OCM live resources endpoint. Shows ManifestWork sync status,
+HostedCluster conditions, certificate status, and NodePool health.
+
+```
+osdctl hcp status [flags]
+```
+
+### Examples
+
+```
+  # Show status by cluster name
+  osdctl hcp status --cluster-id my-cluster
+
+  # Show status by cluster ID
+  osdctl hcp status --cluster-id 2o9r9r1q4tp0bulsfksdc8fesls54sql
+```
 
 ### Options
 
 ```
-  -h, --help   help for hcp
+  -C, --cluster-id string   Cluster name, ID, or external ID
+  -h, --help                help for status
 ```
 
 ### Options inherited from parent commands
@@ -25,8 +46,5 @@
 
 ### SEE ALSO
 
-* [osdctl](osdctl.md)	 - OSD CLI
-* [osdctl hcp force-upgrade](osdctl_hcp_force-upgrade.md)	 - Schedule forced control plane upgrade for HCP clusters (Requires ForceUpgrader permissions)
-* [osdctl hcp must-gather](osdctl_hcp_must-gather.md)	 - Create a must-gather for HCP cluster
-* [osdctl hcp status](osdctl_hcp_status.md)	 - Show HCP cluster health status from OCM live resources
+* [osdctl hcp](osdctl_hcp.md)	 - 
 
